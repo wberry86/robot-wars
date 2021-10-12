@@ -3,21 +3,21 @@ var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
 
-console.log(playerName, playerAttack, playerHealth);
+// console.log(playerName, playerAttack, playerHealth);
 
-var enemyName = "Robot of Doom";
+var enemyNames = ["Roborto", "Amy Android", "Robo Trumble", "Pixel"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
-console.log(enemyName, enemyAttack, enemyHealth);
+// console.log(enemyNames, enemyAttack, enemyHealth);
 
-var fight = function () {
+var fight = function (enemyName) {
   window.alert("Welcome to Robot Wars!");
 
   var promptFight = window.prompt(
     "Would you like to FIGHT or SKIP this battle? Enter FIGHT or SKIP to choose"
   );
-  console.log(promptFight);
+  // console.log(promptFight);
 
   if (
     promptFight === "fight" ||
@@ -77,4 +77,8 @@ var fight = function () {
   }
 };
 
-fight();
+
+for(var i = 0; i < enemyNames.length; i++) {
+  fight(enemyNames[i]);
+}
+// fight();
