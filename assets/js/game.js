@@ -11,6 +11,12 @@ var enemyAttack = 12;
 
 // console.log(enemyNames, enemyAttack, enemyHealth);
 
+// add a startGame(function)
+
+// add an endGame(function)
+
+// add a shop(function)
+
 var fight = function (enemyName) {
   // repeat and execute as long as the enemy robot is still alive
   while (enemyHealth > 0 && playerHealth > 0) {
@@ -30,6 +36,7 @@ var fight = function (enemyName) {
         window.alert(playerName + " has chosen to skip the fight. Goodbye!");
         playerMoney = playerMoney - 10;
         console.log("playermoney", playerMoney);
+        // window.prompt("Would you like to visit the shop?")
         break;
       }
     }
@@ -79,14 +86,27 @@ var fight = function (enemyName) {
   }
 };
 
-for (var i = 0; i < enemyNames.length; i++) {
-  if (playerHealth > 0) {
-    window.alert("Welcome to Robot Wars! Round " + (i + 1));
-    var pickedEnemyName = enemyNames[i];
-    enemyHealth = 20;
-    fight(pickedEnemyName);
-  } else {
-    window.alert("You have been defeated! GAME OVER");
-    break;
+var startGame = function() {
+
+  // reset player stats
+  playerHealth = 100;
+  playerAttack = 10;
+  playerMoney = 10;
+
+  for (var i = 0; i < enemyNames.length; i++) {
+    if (playerHealth > 0) {
+      window.alert("Welcome to Robot Wars! Round " + (i + 1));
+      var pickedEnemyName = enemyNames[i];
+      enemyHealth = 20;
+      fight(pickedEnemyName);
+    } else {
+      window.alert("You have been defeated! GAME OVER");
+      // window.promt("Would you like to play again?");
+      break;
+    }
   }
-}
+
+};
+
+startGame();
+
