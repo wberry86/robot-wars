@@ -98,6 +98,14 @@ var startGame = function () {
       var pickedEnemyName = enemyNames[i];
       enemyHealth = 20;
       fight(pickedEnemyName);
+      // if were not at the last enemy in the array
+      if (playerHealth > 0 && i < enemyNames.length - 1) {
+        // ask if player wants to use the store before the next round
+        // if yes, take them to the store() function
+        if (storeConfirm) {
+          shop();
+        }
+      }
     } else {
       window.alert("You have been defeated! GAME OVER");
       // window.promt("Would you like to play again?");
@@ -132,6 +140,11 @@ var endGame = function () {
       "Thank you for playing Robot Wars! Come back soon if you dare!"
     );
   }
+};
+
+var shop = function () {
+  // ask player what they would like to do
+  var shopOptionPrompt = window.prompt("Would you like to REFILL yout health, upgrade your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
 };
 
 startGame();
