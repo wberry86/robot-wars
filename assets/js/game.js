@@ -3,19 +3,20 @@ var playerHealth = 30;
 var playerAttack = 10;
 var playerMoney = 10;
 
-// console.log(playerName, playerAttack, playerHealth);
+
 
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble", "Pixel"];
 var enemyHealth = 20;
 var enemyAttack = 12;
 
-// console.log(enemyNames, enemyAttack, enemyHealth);
+console.log(enemyNames, enemyAttack, enemyHealth);
 
-// add a startGame(function)
-
-// add an endGame(function)
-
-// add a shop(function)
+// function to generate a random number value
+var randomNumber = function(min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+  
+  return value;
+};
 
 var fight = function (enemyName) {
   // repeat and execute as long as the enemy robot is still alive
@@ -34,14 +35,18 @@ var fight = function (enemyName) {
       var confirmSkip = window.confirm("Are you sure you want to quit?");
       if (confirmSkip) {
         window.alert(playerName + " has chosen to skip the fight. Goodbye!");
-        playerMoney = playerMoney - 10;
+        playerMoney = randomNumber();
         console.log("playermoney", playerMoney);
         // window.prompt("Would you like to visit the shop?")
         break;
       }
     }
 
-    enemyHealth = enemyHealth - playerAttack;
+    // generata random damage based on player's attack power
+    var damage = randomNumber(playerAttack - 3, playerAttack);
+
+    enemyHealth = Math.max(0, enemyHealth - damage);
+
     console.log(
       playerName +
         " attacked " +
@@ -58,13 +63,16 @@ var fight = function (enemyName) {
       window.alert(enemyName + " has died!");
 
       // award player for winning
-      playerMoney = playerMoney + 20;
+      playerMoney = playerMoney + 10;
       break;
     } else {
       window.alert(enemyName + " still has " + enemyHealth + " health left.");
     }
 
-    playerHealth = playerHealth - enemyAttack;
+    var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+    playerHealth = Math.max(0, playerHealth - damage);
+
     console.log(
       enemyName +
         " attacked " +
@@ -86,6 +94,7 @@ var fight = function (enemyName) {
   }
 };
 
+// add a startGame(function)
 var startGame = function () {
   // reset player stats
   playerHealth = 100;
@@ -96,8 +105,19 @@ var startGame = function () {
     if (playerHealth > 0) {
       window.alert("Welcome to Robot Wars! Round " + (i + 1));
       var pickedEnemyName = enemyNames[i];
-      enemyHealth = 20;
+      enemyHealth = randomNumber(40, 60);
       fight(pickedEnemyName);
+      // if were not at the last enemy in the array
+      if (playerHealth > 0 && i < enemyNames.length - 1) {
+        // ask if player wants to use the store before the next round
+        var storeConfirm = window.confirm(
+          "The fight is over, visit the store before the next round?"
+        );
+        // if yes, take them to the store() function
+        if (storeConfirm) {
+          shop();
+        }
+      }
     } else {
       window.alert("You have been defeated! GAME OVER");
       // window.promt("Would you like to play again?");
@@ -108,6 +128,7 @@ var startGame = function () {
   endGame();
 };
 
+// add an endGame(function)
 // function to end the entire game
 var endGame = function () {
   // if player is still alive, player wins!
@@ -133,5 +154,62 @@ var endGame = function () {
     );
   }
 };
+
+// add a shop(function)
+var shop = function () {
+  // ask player what they would like to do
+  var shopOptionPrompt = window.prompt(
+    "Would you like to REFILL yout health, upgrade your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+  );
+
+  // use a switch statement to carry out actions
+  switch (shopOptionPrompt) {
+    case "REFILL":
+    case "Refill":
+    case "refill":
+      if (playerMoney >= 7) {
+        window.alert("Refilling player's health by 20 for 7 dollars.");
+
+        // increase health and decrease money
+        playerHealth = playerHealth + 20;
+        playerMoney = playerMoney - 7;
+      } else {
+        window.alert("You don't have enough money!");
+      }
+      break;
+
+    case "UPGRADE":
+    case "Upgrade":
+    case "upgrade":
+      if (playerMoney >= 7) {
+        window.alert("Upgrading player's attack by 6 for 7 dollars.");
+
+        // increase attack and decrease money
+        playerAttack = playerAttack + 6;
+        playerMoney = playerMoney - 7;
+      } else {
+        window.alert("You don't have enough money!");
+      }
+      break;
+
+    case "LEAVE":
+    case "Leave":
+    case "leave":
+      window.alert("Leaving the store.");
+
+      // do nothing so function will end
+      break;
+
+    default:
+      window.alert("You did not pick a valid option. Try again.");
+
+      // call shop again to force player to pick a valid option
+      shop();
+      break;
+  }
+};
+
+
+console.log(playerName, playerAttack, playerHealth, playerMoney);
 
 startGame();
