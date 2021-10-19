@@ -1,7 +1,7 @@
 var playerName = window.prompt("What is your name?");
 var playerHealth = 30;
 var playerAttack = 10;
-var playerMoney = 10;
+var playerMoney = 20;
 
 
 
@@ -35,7 +35,7 @@ var fight = function (enemyName) {
       var confirmSkip = window.confirm("Are you sure you want to quit?");
       if (confirmSkip) {
         window.alert(playerName + " has chosen to skip the fight. Goodbye!");
-        playerMoney = randomNumber();
+        playerMoney = playerMoney - 10;
         console.log("playermoney", playerMoney);
         // window.prompt("Would you like to visit the shop?")
         break;
